@@ -11,23 +11,21 @@ const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/DomoMaker';
 
-//setup mongoose options to use newer functionality
+// setup mongoose options to use newer functionality
 const mongooseOptions = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-}
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+};
 
 mongoose.connect(dbURL, mongooseOptions, (err) => {
-   if(err) {
-       console.log('Could not connect to database');
-   } 
+  if (err) {
+    console.log('Could not connect to database');
+  }
 });
 
-//Pull in our routes
+// Pull in our routes
 const router = require('./router.js');
-
-
 
 
 const app = express();
@@ -35,18 +33,18 @@ app.use('/assets', express.static(path.resolve(`${__dirname}/../hosted/`)));
 app.use(favicon(`${__dirname}/../hosted/img/favicon.png`));
 app.use(compression());
 app.use(bodyParser.urlencoded({
-    extended: true,
+  extended: true,
 }));
-app.engine('handlebars',expressHandlebars({defaultLayout: 'main'}));
-app.set('view engine','handlebars');
-app.set('views',`${__dirname}/../views`);
+app.engine('handlebars', expressHandlebars({ defaultLayout: 'main' }));
+app.set('view engine', 'handlebars');
+app.set('views', `${__dirname}/../views`);
 app.use(cookieParser());
 
 router(app);
 
 app.listen(port, (err) => {
-    if(err) {
-        throw err;
-    }
-    console.log(`Listening on port ${port}`);
+  if (err) {
+    throw err;
+  }
+  console.log(`Listening on port ${port}`);
 });
