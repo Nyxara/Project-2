@@ -41,7 +41,7 @@ if (process.env.REDISCLOUD_URL) {
   // may need to change below to redisPASS instead
   [, redisPASS] = redisURL.auth.split(':');
 }
-let redisClient = redis.createClient({
+const redisClient = redis.createClient({
   host: redisURL.hostname,
   port: redisURL.port,
   password: redisPASS,
