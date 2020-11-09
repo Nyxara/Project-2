@@ -39,7 +39,7 @@ const LoginWindow = (props) => {
     return (
     <form id="loginForm" 
         name="loginForm"
-        onsubmit={handleLogin}
+        onSubmit={handleLogin}
         action="/login"
         method="POST"
         className="mainForm"
