@@ -30,6 +30,11 @@ const DomoSchema = new mongoose.Schema({
     ref: 'Account',
   },
 
+  kills: {
+    type: Number,
+    min: 0,
+  },
+
   createdDate: {
     type: Date,
     default: Date.now,
@@ -39,6 +44,7 @@ const DomoSchema = new mongoose.Schema({
 DomoSchema.statics.toAPI = (doc) => ({
   name: doc.name,
   age: doc.age,
+  kills: doc.kills,
 });
 
 DomoSchema.statics.findByOwner = (ownerId, callback) => {
@@ -46,7 +52,7 @@ DomoSchema.statics.findByOwner = (ownerId, callback) => {
     owner: convertId(ownerId),
   };
 
-  return DomoModel.find(search).select('name age').lean().exec(callback);
+  return DomoModel.find(search).select('name age kills').lean().exec(callback);
 };
 
 DomoModel = mongoose.model('Domo', DomoSchema);

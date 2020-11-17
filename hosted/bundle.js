@@ -7,7 +7,7 @@ var handleDomo = function handleDomo(e) {
   }, 350);
 
   if ($("#domoName").val() == '' || $("#domoAge").val() == '') {
-    handleError("RAWR X3 || All fields are required UwU");
+    handleError("Rawr X3 || All fields required UwU");
     return false;
   }
 
@@ -39,6 +39,13 @@ var DomoForm = function DomoForm(props) {
     type: "text",
     name: "age",
     placeholder: "Domo Age"
+  }), /*#__PURE__*/React.createElement("label", {
+    htmlFor: "kills"
+  }, "Kills: "), /*#__PURE__*/React.createElement("input", {
+    id: "domoKills",
+    type: "number",
+    name: "kills",
+    placeholder: "0"
   }), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     name: "_csrf",
@@ -47,11 +54,12 @@ var DomoForm = function DomoForm(props) {
     className: "makeDomoSubmit",
     type: "submit",
     value: "Make Domo"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: "getUserSubmit",
+    type: "submit",
+    value: "Show Users"
   }));
-}; //array of domos is empty- UI show no domos
-//otherwise map function to create UI for each domo stored in state 
-//  of component. Every domo will generate a domo div and add it
-//render out a domolist with domonodes array
+};
 
 var DomoList = function DomoList(props) {
   if (props.domos.length === 0) {
@@ -59,7 +67,7 @@ var DomoList = function DomoList(props) {
       className: "domoList"
     }, /*#__PURE__*/React.createElement("h3", {
       className: "emptyDomo"
-    }, "No Domos yet"));
+    }, "No Domos Yet"));
   }
 
   var domoNodes = props.domos.map(function (domo) {
@@ -72,15 +80,16 @@ var DomoList = function DomoList(props) {
       className: "domoFace"
     }), /*#__PURE__*/React.createElement("h3", {
       className: "domoName"
-    }, " Name: ", domo.name), /*#__PURE__*/React.createElement("h3", {
+    }, " Name: ", domo.name, " "), /*#__PURE__*/React.createElement("h3", {
       className: "domoAge"
-    }, " Age: ", domo.age));
+    }, " Age: ", domo.age, " "), /*#__PURE__*/React.createElement("h3", {
+      className: "domoKills"
+    }, " War Crimes Committed: ", domo.kills, " "));
   });
   return /*#__PURE__*/React.createElement("div", {
     className: "domoList"
   }, domoNodes);
-}; //grabs domos from the server and render a DomoList
-//periodically update the screen with changes
+};
 
 var loadDomosFromServer = function loadDomosFromServer() {
   sendAjax('GET', '/getDomos', null, function (data) {
@@ -88,11 +97,7 @@ var loadDomosFromServer = function loadDomosFromServer() {
       domos: data.domos
     }), document.querySelector("#domos"));
   });
-}; //render out DomoForm to the page and render default DomoList
-//domos attribute of DomoList is empty array - because we dont have 
-//  data yet, but will at least get the HTML onto the page while waiting 
-//  for server
-
+};
 
 var setup = function setup(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(DomoForm, {
@@ -102,14 +107,13 @@ var setup = function setup(csrf) {
     domos: []
   }), document.querySelector("#domos"));
   loadDomosFromServer();
-}; //allow us to get CSRF token for new submissions
-
+};
 
 var getToken = function getToken() {
   sendAjax('GET', '/getToken', null, function (result) {
     setup(result.csrfToken);
   });
-}; //page load - getToken() to get new CSRF token and setup React components
+};
 
 $(document).ready(function () {
   getToken();
@@ -117,14 +121,14 @@ $(document).ready(function () {
 "use strict";
 
 var handleError = function handleError(message) {
-  $("#errorMessage").text(message);
-  $("#domoMessage").animate({
+  $("errorMessage").text(message);
+  $("domoMessage").animate({
     width: 'toggle'
   }, 350);
 };
 
 var redirect = function redirect(response) {
-  $("#domoMessage").animate({
+  $("domoMessage").animate({
     width: 'hide'
   }, 350);
   window.location = response.redirect;
