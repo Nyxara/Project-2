@@ -81,6 +81,14 @@ AccountSchema.statics.authenticate = (username, password, callback) => {
   });
 };
 
+AccountSchema.statics.findAll = (callback) => {
+  const search = {
+    
+  };
+
+  return AccountModel.find(search).select('username createdDate').lean().exec(callback);
+};
+
 AccountModel = mongoose.model('Account', AccountSchema);
 
 module.exports.AccountModel = AccountModel;

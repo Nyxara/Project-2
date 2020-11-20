@@ -54,11 +54,9 @@ var DomoForm = function DomoForm(props) {
     className: "makeDomoSubmit",
     type: "submit",
     value: "Make Domo"
-  }), /*#__PURE__*/React.createElement("input", {
-    className: "getUserSubmit",
-    type: "submit",
-    value: "Show Users"
-  }));
+  }), /*#__PURE__*/React.createElement("button", {
+    onClick: downloadUsers
+  }, "Get Users"));
 };
 
 var DomoList = function DomoList(props) {
@@ -112,6 +110,15 @@ var setup = function setup(csrf) {
 var getToken = function getToken() {
   sendAjax('GET', '/getToken', null, function (result) {
     setup(result.csrfToken);
+  });
+};
+
+var downloadUsers = function downloadUsers() {
+  console.log("users downloaded");
+  sendAjax('GET', '/getUsers', null, function (data) {
+    ReactDOM.render( /*#__PURE__*/React.createElement(DomoList, {
+      domos: data.users
+    }), document.querySelector("#domos"));
   });
 };
 

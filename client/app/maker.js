@@ -33,7 +33,8 @@ const DomoForm = (props) => {
         <input id="domoKills" type="number" name="kills" placeholder="0"/>
         <input type="hidden" name="_csrf" value={props.csrf} />
         <input className="makeDomoSubmit" type="submit" value="Make Domo" />
-        <input className="getUserSubmit" type="submit" value="Show Users" />
+        <button onClick={downloadUsers}>Get Users</button>
+
             
         </form>
     );
@@ -91,6 +92,15 @@ const setup = function(csrf) {
 const getToken = () => {
     sendAjax('GET', '/getToken', null, (result) => {
         setup(result.csrfToken);
+    });
+};
+
+const downloadUsers = () => {
+    console.log("users downloaded");
+     sendAjax('GET', '/getUsers', null, (data) => {
+        ReactDOM.render(
+            <DomoList domos={data.users} />, document.querySelector("#domos")
+        );
     });
 };
 

@@ -6,6 +6,11 @@ const loginPage = (req, res) => {
   res.render('login', { csrfToken: req.csrfToken() });
 };
 
+const showUsers = (req, res) => {
+    const name = `${req.body.username}`;
+    const bday = `${req.body.createdDate}`;
+};
+
 /* const signupPage = (req, res) => {
   res.render('signup', { csrfToken: req.csrfToken() });
 }; */
@@ -94,9 +99,24 @@ const getToken = (request, response) => {
   res.json(csrfJSON);
 };
 
+const getUsers = (request, response) => {
+  const req = request;
+  const res = response;
+  return res.json([{ username: "bob", createdDate: "3/22/2000" }]);
+  /*return Account.AccountModel.findAll(req.session.account._id, (err, docs) => {
+      console.log(req.session.account._id);
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occurred' });
+    }
+    return res.json({ users: docs });
+  });*/
+};
+
 module.exports.loginPage = loginPage;
 module.exports.login = login;
 module.exports.logout = logout;
-/* module.exports.signupPage = signupPage; */
+module.exports.showUsers = showUsers;
 module.exports.signup = signup;
 module.exports.getToken = getToken;
+module.exports.getUsers = getUsers;
