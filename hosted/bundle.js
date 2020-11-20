@@ -54,9 +54,7 @@ var DomoForm = function DomoForm(props) {
     className: "makeDomoSubmit",
     type: "submit",
     value: "Make Domo"
-  }), /*#__PURE__*/React.createElement("button", {
-    onClick: downloadUsers
-  }, "Get Users"));
+  }));
 };
 
 var DomoList = function DomoList(props) {
@@ -104,6 +102,12 @@ var setup = function setup(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(DomoList, {
     domos: []
   }), document.querySelector("#domos"));
+  ReactDOM.render( /*#__PURE__*/React.createElement(MyButton, {
+    label: "See All Users"
+  }), document.querySelector("#buttonSpan"));
+  ReactDOM.render( /*#__PURE__*/React.createElement(UserList, {
+    users: []
+  }), document.querySelector("#users"));
   loadDomosFromServer();
 };
 
@@ -115,11 +119,41 @@ var getToken = function getToken() {
 
 var downloadUsers = function downloadUsers() {
   console.log("users downloaded");
-  sendAjax('GET', '/getUsers', null, function (data) {
-    ReactDOM.render( /*#__PURE__*/React.createElement(DomoList, {
-      domos: data.users
-    }), document.querySelector("#domos"));
+  sendAjax('GET', '/getUsers', null, function (result) {
+    ReactDOM.render( /*#__PURE__*/React.createElement(UserList, {
+      users: result.users
+    }), document.querySelector("#users"));
   });
+};
+
+var MyButton = function MyButton(props) {
+  return /*#__PURE__*/React.createElement("button", {
+    onClick: downloadUsers
+  }, props.label);
+};
+
+var UserList = function UserList(props) {
+  if (props.users.length === 0) {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "domoList"
+    }, /*#__PURE__*/React.createElement("h3", {
+      className: "emptyDomo"
+    }, "No Users Yet"));
+  }
+
+  var userNodes = props.users.map(function (user) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: user._id,
+      className: "domo"
+    }, /*#__PURE__*/React.createElement("h3", {
+      className: "domoName"
+    }, " User Name: ", user.username, " "), /*#__PURE__*/React.createElement("h3", {
+      className: "domoAge"
+    }, " Birthday: ", user.createdDate, " "));
+  });
+  return /*#__PURE__*/React.createElement("div", {
+    className: "domoList"
+  }, userNodes);
 };
 
 $(document).ready(function () {

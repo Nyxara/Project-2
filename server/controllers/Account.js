@@ -98,15 +98,15 @@ const getUsers = (request, response) => {
   const req = request;
   const res = response;
 
-  res.json([{ username: 'bob', createdDate: '3/22/2000' }]);
-  /* return Account.AccountModel.findAll(req.session.account._id, (err, docs) => {
+  //res.json([{ username: 'bob', createdDate: '3/22/2000' }]);
+   return Account.AccountModel.findAll((err, docs) => {
       console.log(req.session.account._id);
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occurred' });
     }
     return res.json({ users: docs });
-  }); */
+  }); 
 };
 
 module.exports.loginPage = loginPage;

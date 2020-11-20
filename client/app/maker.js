@@ -33,7 +33,6 @@ const DomoForm = (props) => {
         <input id="domoKills" type="number" name="kills" placeholder="0"/>
         <input type="hidden" name="_csrf" value={props.csrf} />
         <input className="makeDomoSubmit" type="submit" value="Make Domo" />
-        <button onClick={downloadUsers}>Get Users</button>
 
             
         </form>
@@ -85,6 +84,14 @@ const setup = function(csrf) {
         <DomoList domos={[]} />, document.querySelector("#domos")
     );
     
+    ReactDOM.render (
+        <MyButton label={"See All Users"} />, document.querySelector("#buttonSpan")
+    );
+    
+     ReactDOM.render(
+        <UserList users={[]} />, document.querySelector("#users")
+    );
+    
     loadDomosFromServer();
 };
 
@@ -97,11 +104,43 @@ const getToken = () => {
 
 const downloadUsers = () => {
     console.log("users downloaded");
-     sendAjax('GET', '/getUsers', null, (data) => {
+     sendAjax('GET', '/getUsers', null, (result) => {
         ReactDOM.render(
-            <DomoList domos={data.users} />, document.querySelector("#domos")
+            <UserList users={result.users} />, document.querySelector("#users")
         );
     });
+};
+
+const MyButton = (props) => {
+    return(
+        <button onClick={downloadUsers}>{ props.label }</button>
+    );
+};
+
+const UserList = function(props) {
+    if(props.users.length === 0) {
+        return (
+            <div className="domoList">
+                <h3 className="emptyDomo">No Users Yet</h3>
+            </div>
+        );
+    }
+    
+    const userNodes = props.users.map(function(user) {
+        return (
+            <div key={user._id} className="domo">
+           
+            <h3 className="domoName"> User Name: {user.username} </h3>
+            <h3 className="domoAge"> Birthday: {user.createdDate} </h3>   
+            </div>
+        );
+    });
+    
+    return (
+        <div className="domoList">
+            {userNodes}
+        </div>
+    );
 };
 
 
