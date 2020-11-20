@@ -83,7 +83,7 @@ AccountSchema.statics.authenticate = (username, password, callback) => {
 
 AccountSchema.statics.findAll = (callback) => {
   const search = {
-    
+
   };
 
   return AccountModel.find(search).select('username createdDate').lean().exec(callback);
