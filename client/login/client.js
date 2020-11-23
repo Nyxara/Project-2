@@ -1,7 +1,7 @@
 const handleLogin = (e) => {
     e.preventDefault();
     
-    $("#domoMessage").animate({width:'hide'},350);
+    $("#failMessage").animate({width:'hide'},350);
     
     if($("#user").val() == '' || $("#pass").val() == '') {
         handleError("Rawr X3 || Username or Password is empty UwU");
@@ -18,7 +18,7 @@ const handleLogin = (e) => {
 const handleSignup = (e) => {
     e.preventDefault();
     
-    $("#domoMessage").animate({width:'hide'},350);
+    $("#failMessage").animate({width:'hide'},350);
     
     if($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
         handleError("Rawr X3 || All Fields Required UwU");

@@ -1,75 +1,81 @@
-const handleDomo = (e) => {
+const handleChar = (e) => {
 e.preventDefault();
     
-    $("#domoMessage").animate({width:'hide'},350);
+    $("#failMessage").animate({width:'hide'},350);
     
-    if($("#domoName").val() == '' || $("#domoAge").val() == '') {
+    if($("#charName").val() == '' || $("#charLevel").val() == '') {
         handleError("Rawr X3 || All fields required UwU");
         return false;
     }
     
-    sendAjax('POST', $("#domoForm").attr("action"), $("#domoForm").serialize(), function() {
-        loadDomosFromServer();
+    sendAjax('POST', $("#charForm").attr("action"), $("#charForm").serialize(), function() {
+        loadCharsFromServer();
     });
     
     return false;
 };
 
-const DomoForm = (props) => {
+const CharForm = (props) => {
     return(
-        <form id="domoForm"
-              onSubmit={handleDomo}
-              name="domoForm"
+        <form id="charForm"
+              onSubmit={handleChar}
+              name="charForm"
               action="/maker"
               method="POST"
-              className="domoForm"
+              className="charForm"
         >
         
         <label htmlFor="name">Name: </label>
-        <input id="domoName" type="text" name="name" placeholder="Domo Name"/>
-        <label htmlFor="age">Age: </label>
-        <input id="domoAge" type="text" name="age" placeholder="Domo Age"/>
-        <label htmlFor="kills">Kills: </label>
-        <input id="domoKills" type="number" name="kills" placeholder="0"/>
+        <input id="charName" type="text" name="name" placeholder="Character Name"/>
+        <label htmlFor="level">Level: </label>
+        <input id="charLevel" type="text" name="level" placeholder="Character Level"/>
+        <label htmlFor="class">Class: </label>
+        <input id="charClass" type="text" name="class" placeholder="Character Class"/>
+        <label htmlFor="race">Race: </label>
+        <input id="charRace" type="text" name="race" placeholder="Character Race"/>
+        <label htmlFor="ref">Ref Sheet Link: </label>
+        <input id="charRef" type="url" name="ref" placeholder="Character Reference"/>
         <input type="hidden" name="_csrf" value={props.csrf} />
-        <input className="makeDomoSubmit" type="submit" value="Make Domo" />
+        <input className="makeCharSubmit" type="submit" value="Make Character" />
 
             
         </form>
     );
 };
 
-const DomoList = function(props) {
-    if(props.domos.length === 0) {
+const CharList = function(props) {
+    if(props.chars.length === 0) {
         return (
-            <div className="domoList">
-                <h3 className="emptyDomo">No Domos Yet</h3>
+            <div className="charList">
+                <h3 className="emptyChar">No Characters Yet</h3>
             </div>
         );
     }
     
-    const domoNodes = props.domos.map(function(domo) {
+    const charNodes = props.chars.map(function(char) {
         return (
-            <div key={domo._id} className="domo">
-            <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" />
-            <h3 className="domoName"> Name: {domo.name} </h3>
-            <h3 className="domoAge"> Age: {domo.age} </h3>
-            <h3 className="domoKills"> War Crimes Committed: {domo.kills} </h3>   
+            <div key={char._id} className="char">
+            
+            <h3 className="charName"> Name: {char.name} </h3>
+            <h3 className="charLevel"> Level: {char.level} </h3>
+            <h3 className="charClass"> Class: {char.class} </h3>  
+            <h3 className="charRace"> Race: {char.race} </h3>
+            <h3 className="charRef"> Ref Sheet Link: <a href="{char.ref}">{char.ref}</a> </h3>   
             </div>
         );
     });
     
     return (
-        <div className="domoList">
-            {domoNodes}
+        <div className="charList">
+            {charNodes}
         </div>
     );
 };
 
-const loadDomosFromServer = () => {
-    sendAjax('GET', '/getDomos', null, (data) => {
+const loadCharsFromServer = () => {
+    sendAjax('GET', '/getChars', null, (data) => {
         ReactDOM.render(
-            <DomoList domos={data.domos} />, document.querySelector("#domos")
+            <CharList chars={data.chars} />, document.querySelector("#chars")
         );
     });
 };
@@ -77,11 +83,11 @@ const loadDomosFromServer = () => {
 
 const setup = function(csrf) {
     ReactDOM.render(
-        <DomoForm csrf={csrf} />, document.querySelector("#makeDomo")
+        <CharForm csrf={csrf} />, document.querySelector("#makeChar")
     );
     
     ReactDOM.render(
-        <DomoList domos={[]} />, document.querySelector("#domos")
+        <CharList chars={[]} />, document.querySelector("#chars")
     );
     
     ReactDOM.render (
@@ -92,7 +98,7 @@ const setup = function(csrf) {
         <UserList users={[]} />, document.querySelector("#users")
     );
     
-    loadDomosFromServer();
+    loadCharsFromServer();
 };
 
 
@@ -120,24 +126,24 @@ const MyButton = (props) => {
 const UserList = function(props) {
     if(props.users.length === 0) {
         return (
-            <div className="domoList">
-                <h3 className="emptyDomo">No Users Yet</h3>
+            <div className="userList">
+                <h3 className="emptyUser">No Users Yet</h3>
             </div>
         );
     }
     
     const userNodes = props.users.map(function(user) {
         return (
-            <div key={user._id} className="domo">
+            <div key={user._id} className="user">
            
-            <h3 className="domoName"> User Name: {user.username} </h3>
-            <h3 className="domoAge"> Birthday: {user.createdDate} </h3>   
+            <h3 className="userName"> User Name: {user.username} </h3>
+            <h3 className="userAge"> Birthday: {user.createdDate} </h3>   
             </div>
         );
     });
     
     return (
-        <div className="domoList">
+        <div className="charList">
             {userNodes}
         </div>
     );

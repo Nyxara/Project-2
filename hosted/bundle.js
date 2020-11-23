@@ -1,114 +1,130 @@
 "use strict";
 
-var handleDomo = function handleDomo(e) {
+var handleChar = function handleChar(e) {
   e.preventDefault();
-  $("#domoMessage").animate({
+  $("#failMessage").animate({
     width: 'hide'
   }, 350);
 
-  if ($("#domoName").val() == '' || $("#domoAge").val() == '') {
+  if ($("#charName").val() == '' || $("#charLevel").val() == '') {
     handleError("Rawr X3 || All fields required UwU");
     return false;
   }
 
-  sendAjax('POST', $("#domoForm").attr("action"), $("#domoForm").serialize(), function () {
-    loadDomosFromServer();
+  sendAjax('POST', $("#charForm").attr("action"), $("#charForm").serialize(), function () {
+    loadCharsFromServer();
   });
   return false;
 };
 
-var DomoForm = function DomoForm(props) {
+var CharForm = function CharForm(props) {
   return /*#__PURE__*/React.createElement("form", {
-    id: "domoForm",
-    onSubmit: handleDomo,
-    name: "domoForm",
+    id: "charForm",
+    onSubmit: handleChar,
+    name: "charForm",
     action: "/maker",
     method: "POST",
-    className: "domoForm"
+    className: "charForm"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: "name"
   }, "Name: "), /*#__PURE__*/React.createElement("input", {
-    id: "domoName",
+    id: "charName",
     type: "text",
     name: "name",
-    placeholder: "Domo Name"
+    placeholder: "Character Name"
   }), /*#__PURE__*/React.createElement("label", {
-    htmlFor: "age"
-  }, "Age: "), /*#__PURE__*/React.createElement("input", {
-    id: "domoAge",
+    htmlFor: "level"
+  }, "Level: "), /*#__PURE__*/React.createElement("input", {
+    id: "charLevel",
     type: "text",
-    name: "age",
-    placeholder: "Domo Age"
+    name: "level",
+    placeholder: "Character Level"
   }), /*#__PURE__*/React.createElement("label", {
-    htmlFor: "kills"
-  }, "Kills: "), /*#__PURE__*/React.createElement("input", {
-    id: "domoKills",
-    type: "number",
-    name: "kills",
-    placeholder: "0"
+    htmlFor: "class"
+  }, "Class: "), /*#__PURE__*/React.createElement("input", {
+    id: "charClass",
+    type: "text",
+    name: "class",
+    placeholder: "Character Class"
+  }), /*#__PURE__*/React.createElement("label", {
+    htmlFor: "race"
+  }, "Race: "), /*#__PURE__*/React.createElement("input", {
+    id: "charRace",
+    type: "text",
+    name: "race",
+    placeholder: "Character Race"
+  }), /*#__PURE__*/React.createElement("label", {
+    htmlFor: "ref"
+  }, "Ref Sheet Link: "), /*#__PURE__*/React.createElement("input", {
+    id: "charRef",
+    type: "url",
+    name: "ref",
+    placeholder: "Character Reference"
   }), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     name: "_csrf",
     value: props.csrf
   }), /*#__PURE__*/React.createElement("input", {
-    className: "makeDomoSubmit",
+    className: "makeCharSubmit",
     type: "submit",
-    value: "Make Domo"
+    value: "Make Character"
   }));
 };
 
-var DomoList = function DomoList(props) {
-  if (props.domos.length === 0) {
+var CharList = function CharList(props) {
+  if (props.chars.length === 0) {
     return /*#__PURE__*/React.createElement("div", {
-      className: "domoList"
+      className: "charList"
     }, /*#__PURE__*/React.createElement("h3", {
-      className: "emptyDomo"
-    }, "No Domos Yet"));
+      className: "emptyChar"
+    }, "No Characters Yet"));
   }
 
-  var domoNodes = props.domos.map(function (domo) {
+  var charNodes = props.chars.map(function (_char) {
     return /*#__PURE__*/React.createElement("div", {
-      key: domo._id,
-      className: "domo"
-    }, /*#__PURE__*/React.createElement("img", {
-      src: "/assets/img/domoface.jpeg",
-      alt: "domo face",
-      className: "domoFace"
-    }), /*#__PURE__*/React.createElement("h3", {
-      className: "domoName"
-    }, " Name: ", domo.name, " "), /*#__PURE__*/React.createElement("h3", {
-      className: "domoAge"
-    }, " Age: ", domo.age, " "), /*#__PURE__*/React.createElement("h3", {
-      className: "domoKills"
-    }, " War Crimes Committed: ", domo.kills, " "));
+      key: _char._id,
+      className: "char"
+    }, /*#__PURE__*/React.createElement("h3", {
+      className: "charName"
+    }, " Name: ", _char.name, " "), /*#__PURE__*/React.createElement("h3", {
+      className: "charLevel"
+    }, " Level: ", _char.level, " "), /*#__PURE__*/React.createElement("h3", {
+      className: "charClass"
+    }, " Class: ", _char["class"], " "), /*#__PURE__*/React.createElement("h3", {
+      className: "charRace"
+    }, " Race: ", _char.race, " "), /*#__PURE__*/React.createElement("h3", {
+      className: "charRef"
+    }, " Ref Sheet Link: ", /*#__PURE__*/React.createElement("a", {
+      href: "{char.ref}"
+    }, _char.ref), " "));
   });
   return /*#__PURE__*/React.createElement("div", {
-    className: "domoList"
-  }, domoNodes);
+    className: "charList"
+  }, charNodes);
 };
 
-var loadDomosFromServer = function loadDomosFromServer() {
-  sendAjax('GET', '/getDomos', null, function (data) {
-    ReactDOM.render( /*#__PURE__*/React.createElement(DomoList, {
-      domos: data.domos
-    }), document.querySelector("#domos"));
+var loadCharsFromServer = function loadCharsFromServer() {
+  sendAjax('GET', '/getChars', null, function (data) {
+    ReactDOM.render( /*#__PURE__*/React.createElement(CharList, {
+      chars: data.chars
+    }), document.querySelector("#chars"));
   });
 };
 
 var setup = function setup(csrf) {
-  ReactDOM.render( /*#__PURE__*/React.createElement(DomoForm, {
+  ReactDOM.render( /*#__PURE__*/React.createElement(CharForm, {
     csrf: csrf
-  }), document.querySelector("#makeDomo"));
-  ReactDOM.render( /*#__PURE__*/React.createElement(DomoList, {
-    domos: []
-  }), document.querySelector("#domos"));
+  }), document.querySelector("#makeChar"));
+  ReactDOM.render( /*#__PURE__*/React.createElement(CharList, {
+    chars: []
+  }), document.querySelector("#chars"));
   ReactDOM.render( /*#__PURE__*/React.createElement(MyButton, {
     label: "See All Users"
   }), document.querySelector("#buttonSpan"));
   ReactDOM.render( /*#__PURE__*/React.createElement(UserList, {
     users: []
   }), document.querySelector("#users"));
-  loadDomosFromServer();
+  loadCharsFromServer();
 };
 
 var getToken = function getToken() {
@@ -135,24 +151,24 @@ var MyButton = function MyButton(props) {
 var UserList = function UserList(props) {
   if (props.users.length === 0) {
     return /*#__PURE__*/React.createElement("div", {
-      className: "domoList"
+      className: "userList"
     }, /*#__PURE__*/React.createElement("h3", {
-      className: "emptyDomo"
+      className: "emptyUser"
     }, "No Users Yet"));
   }
 
   var userNodes = props.users.map(function (user) {
     return /*#__PURE__*/React.createElement("div", {
       key: user._id,
-      className: "domo"
+      className: "user"
     }, /*#__PURE__*/React.createElement("h3", {
-      className: "domoName"
+      className: "userName"
     }, " User Name: ", user.username, " "), /*#__PURE__*/React.createElement("h3", {
-      className: "domoAge"
+      className: "userAge"
     }, " Birthday: ", user.createdDate, " "));
   });
   return /*#__PURE__*/React.createElement("div", {
-    className: "domoList"
+    className: "charList"
   }, userNodes);
 };
 
@@ -163,13 +179,13 @@ $(document).ready(function () {
 
 var handleError = function handleError(message) {
   $("errorMessage").text(message);
-  $("domoMessage").animate({
+  $("failMessage").animate({
     width: 'toggle'
   }, 350);
 };
 
 var redirect = function redirect(response) {
-  $("domoMessage").animate({
+  $("failMessage").animate({
     width: 'hide'
   }, 350);
   window.location = response.redirect;
