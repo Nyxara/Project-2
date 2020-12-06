@@ -59,33 +59,31 @@ const getChars = (request, response) => {
   });
 };
 
-const getRef = () => {
-    
-     const URL = ref;
-   
-    term = encodeURIComponent(term.trim());
-		if(term.length < 2) return;
-    
-    let url = `${URL}`;
+/* const getRef = () => {
+  const URL = ref;
 
-    const xhr = new XMLHttpRequest();
+  term = encodeURIComponent(term.trim());
+  if (term.length < 2) return;
 
-    xhr.onerror = (e) => console.log("XHR error");
+  const url = `${URL}`;
 
-    xhr.onload = (e) => {
-      const jsonString = e.target.response;
-      const json = JSON.parse(jsonString);
-    
-     // TODO
+  const xhr = new XMLHttpRequest();
+
+  xhr.onerror = (e) => console.log('XHR error');
+
+  xhr.onload = (e) => {
+    const jsonString = e.target.response;
+    const json = JSON.parse(jsonString);
+
+    // TODO
     // update `results` array an the UI
-     
-    }; // end xhr.onload
-    
-    xhr.open("GET",url);
-    xhr.send();
-};
+  }; // end xhr.onload
+
+  xhr.open('GET', url);
+  xhr.send();
+}; */
 
 module.exports.makerPage = makerPage;
 module.exports.getChars = getChars;
 module.exports.make = makeChar;
-module.exports.getRef = getRef;
+// module.exports.getRef = getRef;
