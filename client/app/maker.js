@@ -3,8 +3,8 @@ e.preventDefault();
     
     $("#failMessage").animate({width:'hide'},350);
     
-    if($("#charName").val() == '' || $("#charLevel").val() == '') {   //supposed to show error, doesn't work
-        handleError("Rawr X3 || All fields required UwU");
+    if($("#charName").val() == '' || $("#charLevel").val() == '' || $("#charClass").val() == '' || $("#charRace").val() == '' || $("#charRef").val() == '') {   //creates text to show error
+        handleError("All fields required");
         return false;
     }
     

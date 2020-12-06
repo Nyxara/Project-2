@@ -3,8 +3,8 @@ const handleLogin = (e) => {
     
     $("#failMessage").animate({width:'hide'},350);
     
-    if($("#user").val() == '' || $("#pass").val() == '') {   //supposed to write an error on screen, but never worked
-        handleError("Rawr X3 || Username or Password is empty UwU");
+    if($("#user").val() == '' || $("#pass").val() == '') {   //provides error message to display on screen
+        handleError("Both Username and Password are required");
         return false;
     }
     
@@ -21,12 +21,12 @@ const handleSignup = (e) => {
     $("#failMessage").animate({width:'hide'},350);
     
     if($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {   //supposed to write an error on screen, but never worked
-        handleError("Rawr X3 || All Fields Required UwU");
+        handleError("All Fields Required");
         return false;
     }
     
     if($("#pass").val() !== $("#pass2").val()) {
-        handleError("Rawr X3 || Passwords Do Not Match UwU");
+        handleError("Passwords Do Not Match");
         return false;
     }
     

@@ -24,12 +24,12 @@ const login = (request, response) => { // allows user to login
   const password = `${req.body.pass}`;
 
   if (!username || !password) {
-    return res.status(400).json({ error: 'RAWR X3 || All fields are required UwU' }); // I don't think this works
+    return res.status(400).json({ error: 'All fields are required' }); // writes error message
   }
 
   return Account.AccountModel.authenticate(username, password, (err, account) => {
     if (err || !account) {
-      return res.status(401).json({ error: 'Wrong username or password' }); // I dont think this works
+      return res.status(401).json({ error: 'Wrong username or password' }); // writes error message
     }
 
     req.session.account = Account.AccountModel.toAPI(account);
@@ -49,11 +49,11 @@ const signup = (request, response) => { // allows the users to sign in,
   req.body.pass2 = `${req.body.pass2}`;
 
   if (!req.body.username || !req.body.pass || !req.body.pass2) {
-    return res.status(400).json({ error: 'RAWR X3 || All fields are required UwU' });
+    return res.status(400).json({ error: 'All fields are required' }); // writes error message
   }
 
   if (req.body.pass !== req.body.pass2) {
-    return res.status(400).json({ error: 'RAWR X3 || Passwords do not match UwU' });
+    return res.status(400).json({ error: 'Passwords do not match' }); // writes error message
   }
 
   return Account.AccountModel.generateHash(req.body.pass, (salt, hash) => {
@@ -76,10 +76,10 @@ const signup = (request, response) => { // allows the users to sign in,
       console.log(err);
 
       if (err.code === 11000) {
-        return res.status(400).json({ error: 'Username already in use' });
+        return res.status(400).json({ error: 'Username already in use' }); // writes error message
       }
 
-      return res.status(400).json({ error: 'An error occurred' });
+      return res.status(400).json({ error: 'An error occurred' }); // writes error message
     });
   });
 };
@@ -105,7 +105,7 @@ const getUsers = (request, response) => {
     console.log(req.session.account._id);
     if (err) {
       console.log(err);
-      return res.status(400).json({ error: 'An error occurred' });
+      return res.status(400).json({ error: 'An error occurred' }); // writes error message
     }
     return res.json({ users: docs });
   });

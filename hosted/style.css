@@ -3,7 +3,7 @@ html, body {
     width: 100%;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    overflow: hidden;
     background-image: url(img/bg2.jpg);
 }
 
@@ -182,9 +182,10 @@ button {
 
 #failMessage h3 {
     width: 200px;
+    background-color: snow;
+    padding: 20px;
     position: absolute;
     top: 0px;
-    left: 20px;
 }
 
 #speech {

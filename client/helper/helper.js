@@ -1,10 +1,10 @@
-const handleError = (message) => {   //idk why, but this doesn't work
-    $("errorMessage").text(message);
-    $("failMessage").animate({width:'toggle'},350);
+const handleError = (message) => {   //displays error messages set in controllers
+    $("#errorMessage").text(message);
+    $("#failMessage").animate({width:'toggle'},350); //pulls error message onscreen
 };
 
 const redirect = (response) => {
-    $("failMessage").animate({width:'hide'},350);
+    $("#failMessage").animate({width:'hide'},350); //hides error message
     window.location = response.redirect;
 };
 

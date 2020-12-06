@@ -6,9 +6,9 @@ var handleChar = function handleChar(e) {
     width: 'hide'
   }, 350);
 
-  if ($("#charName").val() == '' || $("#charLevel").val() == '') {
-    //supposed to show error, doesn't work
-    handleError("Rawr X3 || All fields required UwU");
+  if ($("#charName").val() == '' || $("#charLevel").val() == '' || $("#charClass").val() == '' || $("#charRace").val() == '' || $("#charRef").val() == '') {
+    //creates text to show error
+    handleError("All fields required");
     return false;
   }
 
@@ -189,17 +189,18 @@ $(document).ready(function () {
 "use strict";
 
 var handleError = function handleError(message) {
-  //idk why, but this doesn't work
-  $("errorMessage").text(message);
-  $("failMessage").animate({
+  //displays error messages set in controllers
+  $("#errorMessage").text(message);
+  $("#failMessage").animate({
     width: 'toggle'
-  }, 350);
+  }, 350); //pulls error message onscreen
 };
 
 var redirect = function redirect(response) {
-  $("failMessage").animate({
+  $("#failMessage").animate({
     width: 'hide'
-  }, 350);
+  }, 350); //hides error message
+
   window.location = response.redirect;
 };
 

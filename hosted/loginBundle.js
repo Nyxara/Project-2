@@ -7,8 +7,8 @@ var handleLogin = function handleLogin(e) {
   }, 350);
 
   if ($("#user").val() == '' || $("#pass").val() == '') {
-    //supposed to write an error on screen, but never worked
-    handleError("Rawr X3 || Username or Password is empty UwU");
+    //provides error message to display on screen
+    handleError("Both Username and Password are required");
     return false;
   }
 
@@ -25,12 +25,12 @@ var handleSignup = function handleSignup(e) {
 
   if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
     //supposed to write an error on screen, but never worked
-    handleError("Rawr X3 || All Fields Required UwU");
+    handleError("All Fields Required");
     return false;
   }
 
   if ($("#pass").val() !== $("#pass2").val()) {
-    handleError("Rawr X3 || Passwords Do Not Match UwU");
+    handleError("Passwords Do Not Match");
     return false;
   }
 
@@ -156,17 +156,18 @@ $(document).ready(function () {
 "use strict";
 
 var handleError = function handleError(message) {
-  //idk why, but this doesn't work
-  $("errorMessage").text(message);
-  $("failMessage").animate({
+  //displays error messages set in controllers
+  $("#errorMessage").text(message);
+  $("#failMessage").animate({
     width: 'toggle'
-  }, 350);
+  }, 350); //pulls error message onscreen
 };
 
 var redirect = function redirect(response) {
-  $("failMessage").animate({
+  $("#failMessage").animate({
     width: 'hide'
-  }, 350);
+  }, 350); //hides error message
+
   window.location = response.redirect;
 };
 

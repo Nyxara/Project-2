@@ -17,7 +17,7 @@ const makerPage = (req, res) => {
 const makeChar = (req, res) => {
   // gets components of charSchema and makes them usable by rest of code
   if (!req.body.name || !req.body.level || !req.body.class) {
-    return res.status(400).json({ error: 'RAWR X3 || Both name, level, and class are required UwU' });
+    return res.status(400).json({ error: 'All fields are required' }); // writes error message
   }
 
   const charData = {
@@ -38,10 +38,10 @@ const makeChar = (req, res) => {
   charPromise.catch((err) => {
     console.log(err);
     if (err.code === 11000) {
-      return res.status(400).json({ error: 'Character already exists.' });
+      return res.status(400).json({ error: 'Character already exists.' }); // writes error message
     }
 
-    return res.status(400).json({ error: 'An error occurred.' });
+    return res.status(400).json({ error: 'An error occurred.' }); // writes error message
   });
 
   return charPromise;
@@ -54,7 +54,7 @@ const getChars = (request, response) => { // allows for retrieval of characters
   return Char.CharModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
-      return res.status(400).json({ error: 'An error occurred' });
+      return res.status(400).json({ error: 'An error occurred' }); // writes error message
     }
     return res.json({ chars: docs });
   });
