@@ -10,7 +10,7 @@ let CharModel = {};
 const convertId = mongoose.Types.ObjectId;
 const setName = (name) => _.escape(name).trim();
 
-const CharSchema = new mongoose.Schema({
+const CharSchema = new mongoose.Schema({ // sets up character schema to be used elsewhere
   name: {
     type: String,
     required: true,
@@ -64,7 +64,7 @@ CharSchema.statics.findByOwner = (ownerId, callback) => {
     owner: convertId(ownerId),
   };
 
-  return CharModel.find(search).select('name level class race ref').lean().exec(callback);
+  return CharModel.find(search).select('name level class race ref').lean().exec(callback); // actually exports CharSchema stuff
 };
 
 CharModel = mongoose.model('Char', CharSchema);

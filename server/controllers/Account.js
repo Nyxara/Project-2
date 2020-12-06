@@ -10,12 +10,12 @@ const loginPage = (req, res) => {
   res.render('signup', { csrfToken: req.csrfToken() });
 }; */
 
-const logout = (req, res) => {
+const logout = (req, res) => { // allows user to log out
   req.session.destroy();
   res.redirect('/');
 };
 
-const login = (request, response) => {
+const login = (request, response) => { // allows user to login
   const req = request;
   const res = response;
 
@@ -24,12 +24,12 @@ const login = (request, response) => {
   const password = `${req.body.pass}`;
 
   if (!username || !password) {
-    return res.status(400).json({ error: 'RAWR X3 || All fields are required UwU' });
+    return res.status(400).json({ error: 'RAWR X3 || All fields are required UwU' }); // I don't think this works
   }
 
   return Account.AccountModel.authenticate(username, password, (err, account) => {
     if (err || !account) {
-      return res.status(401).json({ error: 'Wrong username or password' });
+      return res.status(401).json({ error: 'Wrong username or password' }); // I dont think this works
     }
 
     req.session.account = Account.AccountModel.toAPI(account);
@@ -38,7 +38,8 @@ const login = (request, response) => {
   });
 };
 
-const signup = (request, response) => {
+const signup = (request, response) => { // allows the users to sign in,
+// but I don't think the error things work
   const req = request;
   const res = response;
 
@@ -100,6 +101,7 @@ const getUsers = (request, response) => {
 
   // res.json([{ username: 'bob', createdDate: '3/22/2000' }]);
   return Account.AccountModel.findAll((err, docs) => {
+    // actually gets all users from the AccountModel
     console.log(req.session.account._id);
     if (err) {
       console.log(err);

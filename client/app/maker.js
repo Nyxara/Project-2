@@ -3,20 +3,19 @@ e.preventDefault();
     
     $("#failMessage").animate({width:'hide'},350);
     
-    if($("#charName").val() == '' || $("#charLevel").val() == '') {
+    if($("#charName").val() == '' || $("#charLevel").val() == '') {   //supposed to show error, doesn't work
         handleError("Rawr X3 || All fields required UwU");
-        console.log("Rawr X3 || All fields required UwU");
         return false;
     }
     
-    sendAjax('POST', $("#charForm").attr("action"), $("#charForm").serialize(), function() {
+    sendAjax('POST', $("#charForm").attr("action"), $("#charForm").serialize(), function() {   //sends data put into program to server
         loadCharsFromServer();
     });
     
     return false;
 };
 
-const CharForm = (props) => {
+const CharForm = (props) => {   //sets up the character info input bar
     return(
         <form id="charForm"
               onSubmit={handleChar}
@@ -44,7 +43,7 @@ const CharForm = (props) => {
     );
 };
 
-const CharList = function(props) {
+const CharList = function(props) {   //creates the list of characters
     if(props.chars.length === 0) {
         return (
             <div className="charList">
@@ -53,7 +52,7 @@ const CharList = function(props) {
         );
     }
     
-    const charNodes = props.chars.map(function(char) {
+    const charNodes = props.chars.map(function(char) {  //sets up how character data is displayed
         return (
             <div key={char._id} className="char">
             
@@ -80,7 +79,7 @@ const CharList = function(props) {
     );
 };
 
-const loadCharsFromServer = () => {
+const loadCharsFromServer = () => {   //recalls all characters for a specified user
     sendAjax('GET', '/getChars', null, (data) => {
         ReactDOM.render(
             <CharList chars={data.chars} />, document.querySelector("#chars")
@@ -94,15 +93,15 @@ const setup = function(csrf) {
         <CharForm csrf={csrf} />, document.querySelector("#makeChar")
     );
     
-    ReactDOM.render(
+    ReactDOM.render(   //creates the array that characters will be stored in
         <CharList chars={[]} />, document.querySelector("#chars")
     );
     
-    ReactDOM.render (
+    ReactDOM.render (   //sets up button to call user list
         <MyButton label={"See All Users"} />, document.querySelector("#buttonSpan")
     );
     
-     ReactDOM.render(
+     ReactDOM.render(   //creates the array that users will be stored in
         <UserList users={[]} />, document.querySelector("#users")
     );
     
@@ -116,7 +115,7 @@ const getToken = () => {
     });
 };
 
-const downloadUsers = () => {
+const downloadUsers = () => { //gets list of users from the account collection of this database
     console.log("users downloaded");
      sendAjax('GET', '/getUsers', null, (result) => {
         ReactDOM.render(
@@ -125,7 +124,7 @@ const downloadUsers = () => {
     });
 };
 
-const MyButton = (props) => {
+const MyButton = (props) => {   //calls download users
     return(
         <button onClick={downloadUsers}>{ props.label }</button>
     );
@@ -140,7 +139,7 @@ const UserList = function(props) {
         );
     }
     
-    const userNodes = props.users.map(function(user) {
+    const userNodes = props.users.map(function(user) {   //Creates the list of users that displays under the character list
         return (
             <div key={user._id} className="user">
            

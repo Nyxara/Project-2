@@ -8,7 +8,7 @@ const iterations = 10000;
 const saltLength = 64;
 const keyLength = 64;
 
-const AccountSchema = new mongoose.Schema({
+const AccountSchema = new mongoose.Schema({ // sets up account schema to be used elsewhere
   username: {
     type: String,
     required: true,
@@ -48,6 +48,7 @@ const validatePassword = (doc, password, callback) => {
 };
 
 AccountSchema.statics.findByUsername = (name, callback) => {
+  // finds one account by username, allowing for login
   const search = {
     username: name,
   };
@@ -82,6 +83,7 @@ AccountSchema.statics.authenticate = (username, password, callback) => {
 };
 
 AccountSchema.statics.findAll = (callback) => {
+  // finds all accounts by username to put them into the userList
   const search = {};
 
   return AccountModel.find(search).select('username createdDate').lean().exec(callback);

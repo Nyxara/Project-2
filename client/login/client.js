@@ -3,7 +3,7 @@ const handleLogin = (e) => {
     
     $("#failMessage").animate({width:'hide'},350);
     
-    if($("#user").val() == '' || $("#pass").val() == '') {
+    if($("#user").val() == '' || $("#pass").val() == '') {   //supposed to write an error on screen, but never worked
         handleError("Rawr X3 || Username or Password is empty UwU");
         return false;
     }
@@ -20,7 +20,7 @@ const handleSignup = (e) => {
     
     $("#failMessage").animate({width:'hide'},350);
     
-    if($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
+    if($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {   //supposed to write an error on screen, but never worked
         handleError("Rawr X3 || All Fields Required UwU");
         return false;
     }
@@ -35,7 +35,7 @@ const handleSignup = (e) => {
     return false;
 };
 
-const LoginWindow = (props) => {
+const LoginWindow = (props) => {   //sets up the login page
     return (
     <form id="loginForm" 
         name="loginForm"
@@ -55,7 +55,7 @@ const LoginWindow = (props) => {
     );
 };
 
-const SignupWindow = (props) => {
+const SignupWindow = (props) => {  //sets up sign up page
     return (
     <form id="signupForm" 
         name="signupForm"
@@ -77,21 +77,21 @@ const SignupWindow = (props) => {
     );
 };
 
-const createLoginWindow = (csrf) => {
+const createLoginWindow = (csrf) => {   //renders login page
     ReactDOM.render(
         <LoginWindow csrf={csrf} />,
         document.querySelector("#content")
     );
 };
 
-const createSignupWindow = (csrf) => {
+const createSignupWindow = (csrf) => {   //renders signUp page
     ReactDOM.render(
         <SignupWindow csrf={csrf} />,
         document.querySelector("#content")
     );
 };
 
-const setup = (csrf) => {
+const setup = (csrf) => {   //sets up the buttons on login and signUp buttons with eventListeners
     const loginButton = document.querySelector("#loginButton");
     const signupButton = document.querySelector("#signupButton");
     

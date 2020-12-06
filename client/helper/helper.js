@@ -1,4 +1,4 @@
-const handleError = (message) => {
+const handleError = (message) => {   //idk why, but this doesn't work
     $("errorMessage").text(message);
     $("failMessage").animate({width:'toggle'},350);
 };

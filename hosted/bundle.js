@@ -7,18 +7,20 @@ var handleChar = function handleChar(e) {
   }, 350);
 
   if ($("#charName").val() == '' || $("#charLevel").val() == '') {
+    //supposed to show error, doesn't work
     handleError("Rawr X3 || All fields required UwU");
-    console.log("Rawr X3 || All fields required UwU");
     return false;
   }
 
   sendAjax('POST', $("#charForm").attr("action"), $("#charForm").serialize(), function () {
+    //sends data put into program to server
     loadCharsFromServer();
   });
   return false;
 };
 
 var CharForm = function CharForm(props) {
+  //sets up the character info input bar
   return /*#__PURE__*/React.createElement("form", {
     id: "charForm",
     onSubmit: handleChar,
@@ -73,6 +75,7 @@ var CharForm = function CharForm(props) {
 };
 
 var CharList = function CharList(props) {
+  //creates the list of characters
   if (props.chars.length === 0) {
     return /*#__PURE__*/React.createElement("div", {
       className: "charList"
@@ -82,6 +85,7 @@ var CharList = function CharList(props) {
   }
 
   var charNodes = props.chars.map(function (_char) {
+    //sets up how character data is displayed
     return /*#__PURE__*/React.createElement("div", {
       key: _char._id,
       className: "char"
@@ -98,6 +102,7 @@ var CharList = function CharList(props) {
 };
 
 var loadCharsFromServer = function loadCharsFromServer() {
+  //recalls all characters for a specified user
   sendAjax('GET', '/getChars', null, function (data) {
     ReactDOM.render( /*#__PURE__*/React.createElement(CharList, {
       chars: data.chars
@@ -109,13 +114,22 @@ var setup = function setup(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(CharForm, {
     csrf: csrf
   }), document.querySelector("#makeChar"));
-  ReactDOM.render( /*#__PURE__*/React.createElement(CharList, {
+  ReactDOM.render(
+  /*#__PURE__*/
+  //creates the array that characters will be stored in
+  React.createElement(CharList, {
     chars: []
   }), document.querySelector("#chars"));
-  ReactDOM.render( /*#__PURE__*/React.createElement(MyButton, {
+  ReactDOM.render(
+  /*#__PURE__*/
+  //sets up button to call user list
+  React.createElement(MyButton, {
     label: "See All Users"
   }), document.querySelector("#buttonSpan"));
-  ReactDOM.render( /*#__PURE__*/React.createElement(UserList, {
+  ReactDOM.render(
+  /*#__PURE__*/
+  //creates the array that users will be stored in
+  React.createElement(UserList, {
     users: []
   }), document.querySelector("#users"));
   loadCharsFromServer();
@@ -128,6 +142,7 @@ var getToken = function getToken() {
 };
 
 var downloadUsers = function downloadUsers() {
+  //gets list of users from the account collection of this database
   console.log("users downloaded");
   sendAjax('GET', '/getUsers', null, function (result) {
     ReactDOM.render( /*#__PURE__*/React.createElement(UserList, {
@@ -137,6 +152,7 @@ var downloadUsers = function downloadUsers() {
 };
 
 var MyButton = function MyButton(props) {
+  //calls download users
   return /*#__PURE__*/React.createElement("button", {
     onClick: downloadUsers
   }, props.label);
@@ -152,6 +168,7 @@ var UserList = function UserList(props) {
   }
 
   var userNodes = props.users.map(function (user) {
+    //Creates the list of users that displays under the character list
     return /*#__PURE__*/React.createElement("div", {
       key: user._id,
       className: "user"
@@ -172,6 +189,7 @@ $(document).ready(function () {
 "use strict";
 
 var handleError = function handleError(message) {
+  //idk why, but this doesn't work
   $("errorMessage").text(message);
   $("failMessage").animate({
     width: 'toggle'

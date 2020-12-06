@@ -7,6 +7,7 @@ var handleLogin = function handleLogin(e) {
   }, 350);
 
   if ($("#user").val() == '' || $("#pass").val() == '') {
+    //supposed to write an error on screen, but never worked
     handleError("Rawr X3 || Username or Password is empty UwU");
     return false;
   }
@@ -23,6 +24,7 @@ var handleSignup = function handleSignup(e) {
   }, 350);
 
   if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
+    //supposed to write an error on screen, but never worked
     handleError("Rawr X3 || All Fields Required UwU");
     return false;
   }
@@ -37,6 +39,7 @@ var handleSignup = function handleSignup(e) {
 };
 
 var LoginWindow = function LoginWindow(props) {
+  //sets up the login page
   return /*#__PURE__*/React.createElement("form", {
     id: "loginForm",
     name: "loginForm",
@@ -70,6 +73,7 @@ var LoginWindow = function LoginWindow(props) {
 };
 
 var SignupWindow = function SignupWindow(props) {
+  //sets up sign up page
   return /*#__PURE__*/React.createElement("form", {
     id: "signupForm",
     name: "signupForm",
@@ -110,18 +114,21 @@ var SignupWindow = function SignupWindow(props) {
 };
 
 var createLoginWindow = function createLoginWindow(csrf) {
+  //renders login page
   ReactDOM.render( /*#__PURE__*/React.createElement(LoginWindow, {
     csrf: csrf
   }), document.querySelector("#content"));
 };
 
 var createSignupWindow = function createSignupWindow(csrf) {
+  //renders signUp page
   ReactDOM.render( /*#__PURE__*/React.createElement(SignupWindow, {
     csrf: csrf
   }), document.querySelector("#content"));
 };
 
 var setup = function setup(csrf) {
+  //sets up the buttons on login and signUp buttons with eventListeners
   var loginButton = document.querySelector("#loginButton");
   var signupButton = document.querySelector("#signupButton");
   signupButton.addEventListener("click", function (e) {
@@ -149,6 +156,7 @@ $(document).ready(function () {
 "use strict";
 
 var handleError = function handleError(message) {
+  //idk why, but this doesn't work
   $("errorMessage").text(message);
   $("failMessage").animate({
     width: 'toggle'

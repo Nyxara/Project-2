@@ -23,7 +23,7 @@ const mongooseOptions = {
   useCreateIndex: true,
 };
 
-mongoose.connect(dbURL, mongooseOptions, (err) => {
+mongoose.connect(dbURL, mongooseOptions, (err) => { // connects to database
   if (err) {
     console.log('Could not connect to database');
   }

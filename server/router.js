@@ -1,3 +1,4 @@
+// used to allow for trasnference between pages
 const controllers = require('./controllers');
 const mid = require('./middleware');
 

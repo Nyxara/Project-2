@@ -15,6 +15,7 @@ const makerPage = (req, res) => {
 };
 
 const makeChar = (req, res) => {
+  // gets components of charSchema and makes them usable by rest of code
   if (!req.body.name || !req.body.level || !req.body.class) {
     return res.status(400).json({ error: 'RAWR X3 || Both name, level, and class are required UwU' });
   }
@@ -46,7 +47,7 @@ const makeChar = (req, res) => {
   return charPromise;
 };
 
-const getChars = (request, response) => {
+const getChars = (request, response) => { // allows for retrieval of characters
   const req = request;
   const res = response;
 
@@ -59,7 +60,7 @@ const getChars = (request, response) => {
   });
 };
 
-/* const getRef = () => {
+/* const getRef = () => {   //supposed to let you go to the ref sheet links, but it never worked
   const URL = ref;
 
   term = encodeURIComponent(term.trim());
