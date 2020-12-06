@@ -5,6 +5,7 @@ e.preventDefault();
     
     if($("#charName").val() == '' || $("#charLevel").val() == '') {
         handleError("Rawr X3 || All fields required UwU");
+        console.log("Rawr X3 || All fields required UwU");
         return false;
     }
     
@@ -56,11 +57,18 @@ const CharList = function(props) {
         return (
             <div key={char._id} className="char">
             
-            <h3 className="charName"> Name: {char.name} </h3>
-            <h3 className="charLevel"> Level: {char.level} </h3>
-            <h3 className="charClass"> Class: {char.class} </h3>  
-            <h3 className="charRace"> Race: {char.race} </h3>
-            <h3 className="charRef"> Ref Sheet Link: <a href="{char.ref}">{char.ref}</a> </h3>   
+            <button type="button" className="charName">{char.name} </button>
+                
+            <div className="dropdown">
+                <ul>
+                <li>Name: {char.name} </li>
+                <li>Level: {char.level} </li>
+                <li>Class: {char.class} </li>
+                <li>Race: {char.race} </li>
+                <li>Ref Sheet Link => {char.ref} </li>
+                </ul>
+                </div> 
+            
             </div>
         );
     });

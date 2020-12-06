@@ -8,6 +8,7 @@ var handleChar = function handleChar(e) {
 
   if ($("#charName").val() == '' || $("#charLevel").val() == '') {
     handleError("Rawr X3 || All fields required UwU");
+    console.log("Rawr X3 || All fields required UwU");
     return false;
   }
 
@@ -84,19 +85,12 @@ var CharList = function CharList(props) {
     return /*#__PURE__*/React.createElement("div", {
       key: _char._id,
       className: "char"
-    }, /*#__PURE__*/React.createElement("h3", {
+    }, /*#__PURE__*/React.createElement("button", {
+      type: "button",
       className: "charName"
-    }, " Name: ", _char.name, " "), /*#__PURE__*/React.createElement("h3", {
-      className: "charLevel"
-    }, " Level: ", _char.level, " "), /*#__PURE__*/React.createElement("h3", {
-      className: "charClass"
-    }, " Class: ", _char["class"], " "), /*#__PURE__*/React.createElement("h3", {
-      className: "charRace"
-    }, " Race: ", _char.race, " "), /*#__PURE__*/React.createElement("h3", {
-      className: "charRef"
-    }, " Ref Sheet Link: ", /*#__PURE__*/React.createElement("a", {
-      href: "{char.ref}"
-    }, _char.ref), " "));
+    }, _char.name, " "), /*#__PURE__*/React.createElement("div", {
+      className: "dropdown"
+    }, /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "Name: ", _char.name, " "), /*#__PURE__*/React.createElement("li", null, "Level: ", _char.level, " "), /*#__PURE__*/React.createElement("li", null, "Class: ", _char["class"], " "), /*#__PURE__*/React.createElement("li", null, "Race: ", _char.race, " "), /*#__PURE__*/React.createElement("li", null, "Ref Sheet Link => ", _char.ref, " "))));
   });
   return /*#__PURE__*/React.createElement("div", {
     className: "charList"
